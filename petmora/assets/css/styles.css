@@ -1,0 +1,400 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+*{
+   font-family: 'Inter', Arial, Helvetica, sans-serif;
+}
+body {
+    background-color: #f8f9fa; /* Branco gelo */
+}
+
+.navbar-shadow-bottom {
+  box-shadow: 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.03);
+}
+
+
+.bg-ice-white {
+    background-color: #f8f9fa;
+  }
+  
+
+.eye-icon {
+    cursor: pointer;
+}
+
+.fundo-10anos{
+    padding-top: 20px;
+    padding-bottom: 150px; 
+    padding-left: 100px;
+    padding-right: 100px;
+    background-color: #F5D14E; 
+    color: #022859;
+    
+}
+
+.card-info{
+    padding-top: 100px;
+    padding-left: 150px;
+}
+
+.carousel-inner img {
+    width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    background-color: #fff;
+}
+
+
+@media (max-width: 768px) {
+    .carousel-inner img {
+        max-height: 250px;
+    }
+}
+
+.subir-card {
+    margin-top: -100px; /* Ajuste esse valor conforme o quanto quiser subir */
+  }
+
+.bg-depoimento { /* depoimento */
+    background-color: #F5D14E;
+    color: white;
+    padding: 3rem 1rem; 
+  }
+ 
+  .titulo-azul { /* titulos */
+    color: #022859;
+    font-weight: 700;
+    font-size: 35px;
+
+  }
+  
+  .bg-depoimento {
+    background-color: #F5D14E;
+    color: white;
+    padding: 3rem 1rem;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  
+  .bg-depoimento .patinha {
+    position: absolute;
+    bottom: 5px;
+    right: 20px;
+    opacity: 0.2;
+    width: 250px;
+    transform: rotate(-25deg); /* inclinação da patinha */
+  }
+
+  .fundo-petsitter {
+    background-color: #f9d649; /* fundo do porque escolher um pet sitter? */
+  }
+
+  .bg-amarelo {
+    background-color: #f9d649; /* cor-depoimento */
+  }
+  
+  .foto-depoimento {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-top: 45px;
+  }
+  
+  .bg-cinza {
+    background-color: #e9e9e9; /* cinza claro */
+
+  }
+
+  .btn-topo {
+    background-color: #f97316; /* Laranja */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .btn-topo:hover {
+    background-color: rgb(216, 99, 3);
+    color: white; /* Garante que o texto continue branco */
+  }
+  
+  /* Adiciona margem e padding no texto */
+.texto-petsitter {
+  padding-left: 150px;   /* Adiciona mais espaçamento à esquerda */
+  padding-right: 50px;  /* Adiciona mais espaçamento à direita */
+  margin-top: 30px;     /* Adiciona mais margem acima */
+  margin-bottom: 30px;  /* Adiciona mais margem abaixo */
+}
+
+/* Cor do botão "contato" */
+
+.btn-orange {
+  background-color: #f97316; 
+  color: white;
+  border: none;
+}
+
+.btn-orange:hover {
+  background-color: rgb(216, 99, 3); 
+  color: white; /* Garante que o texto continue branco */
+}
+
+
+/* Como funciona */
+
+.banner-section {
+  background-image: url('../img/como-funciona-banner.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 700px;  
+}
+
+@media (max-width: 768px) {
+  .banner-section {
+    height: 250px; /* altura menor em telas pequenas */
+  }
+}
+
+
+/* Fundo da seção Beneficos do seu pet*/
+.beneficios-section {
+  background-color: #f1f1f1;
+  padding-top:100px;  
+  padding-bottom: 80px;
+  margin-top: 100px;
+  
+}
+
+/* Estilo dos ícones - Beneficos do seu pet*/
+.beneficio-icon {
+  font-size: 3rem;
+  color: orange;
+}
+
+
+/* Botão laranja personalizado */
+
+.btn-laranja {
+  background-color: #fd7e14 !important;  /* laranja Bootstrap */
+  color: #fff !important;
+  border: none;
+}
+
+.btn-laranja:hover,
+.btn-laranja:focus,
+.btn-laranja:active {
+  background-color: #e96b0d !important; /* tom mais escuro no hover e click */
+  color: #fff !important;
+  box-shadow: none !important;
+  outline: none !important;
+  text-decoration: none !important;
+}
+
+
+/* Encontre o melhor cuidado para seu pet (espaçamento)*/
+.texto-espacado { 
+  margin-top: 40px; /* ou o valor que desejar */
+  padding-bottom: 40px;
+}
+
+.cta-section {
+  padding-top: 100px;
+  padding-bottom: 120px;
+}
+
+/* Espaçamento extra abaixo da seção de contato */
+.contato-section {
+  margin-top: 100px;
+  margin-bottom: 120px; /* Você pode ajustar esse valor conforme necessário */
+}
+
+/* Filtro de Cuidadores */
+
+.card-cuidadores {
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.card-cuidadores img {
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  background-color: #ddd;
+}
+
+.filtro-container {
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.btn-reserva {
+  background-color: #ff6600 !important;
+  color: #fff !important;
+  border: none !important;
+}
+
+.btn-reserva:hover,
+.btn-reserva:active,
+.btn-reserva:focus {
+  background-color: #e05c0a !important;
+  color: #fff !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Resumo e Pagamento */
+
+.bg-light-gray { background-color: #f1f1f1; }
+.btn-laranja { background-color: #000; color: #fff; }
+
+/* Confirmação */
+
+.tela-confirmacao {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem;
+  background-color: #f8f9fa;
+}
+
+.tela-confirmacao .img-top {
+  width: 350px;
+  height: auto;
+  margin-bottom: 30px;
+}
+
+.tela-confirmacao .titulo {
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.tela-confirmacao .mensagem {
+  margin-bottom: 30px;
+}
+
+.tela-confirmacao .btn-home {
+  background-color: black;
+  color: white;
+  padding: 10px 30px;
+  border-radius: 8px;
+  text-decoration: none;
+}
+
+.tela-confirmacao .btn-home:hover {
+  background-color: #333;
+  color: white;
+}
+
+/* Meu Perfil */ 
+
+.profile-img {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid #ccc;
+  cursor: pointer;
+}
+.section-border {
+  border: 1px solid #ccc;
+  padding: 30px;
+}
+.nav-tabs-custom .nav-link {
+  border: none;
+  border-bottom: 3px solid transparent;
+  color: #000;
+}
+.nav-tabs-custom .nav-link.active {
+  font-weight: bold;
+  border-color: #000;
+}
+.edit-label {
+  color: #6c757d;
+  cursor: pointer;
+  text-decoration: underline;
+}
+#uploadFoto {
+  display: none;
+}
+.custom-toast {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  min-width: 250px;
+  z-index: 1055;
+}
+
+/* Estilo do Meu Perfil etc.*/
+
+.nav-tabs .nav-link.active {
+  background-color: #ff7f00; 
+  color: white;
+  border-color: #ff7f00 #ff7f00 white; /
+}
+
+/* Imagem do MEU PET */
+
+.pet-img {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 50%; /* Deixa a imagem 100% redonda */
+  display: block;
+  margin: 0 auto;
+}
+
+/* tons do status (minhas reservas)*/
+
+.badge-status {
+  padding: 0.5em 0.75em;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  font-size: 0.875rem;
+}
+
+.bg-pendente {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.bg-cancelado {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.bg-confirmado {
+  background-color: #d1ecf1;
+  color: #0c5460;
+}
+
+.bg-concluido {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+/* estrelas */
+
+.avaliacao i {
+  font-size: 1.0rem;
+  color: #ccc;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.avaliacao i.ativo {
+  color: #ffc107; 
+}
