@@ -338,6 +338,18 @@ ALTER TABLE `recibo`
 
 ---
 
+### Meu perfil
+
+![Meu Perfil](/petmora/assets/img/meu-perfil.png)
+
+### Meus Pets
+
+![Meu Pets](/petmora/assets/img/meus-pets.png)
+
+### Configurações
+
+![Configurações](/petmora/assets/img/config.png)
+
 ### Escolha o periodo ideal
 
 ![Escolha o Periodo](/petmora/assets/img/escolha-pet.png)
