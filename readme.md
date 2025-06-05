@@ -308,6 +308,11 @@ ALTER TABLE `recibo`
 
 ---
 
+### Prototipo
+
+![home](/petmora/assets/img/prototipo.png)
+
+---
 ### Home
 
 ![home](/petmora/assets/img/home.gif)
