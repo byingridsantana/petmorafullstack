@@ -1,4 +1,4 @@
-# 🐾 Petmora - Projeto Integrador (SENAC)
+# 🐾 Petmora - Projeto Integrador (SENAC) 
 
 
 O **Petmora** é um projeto criado para oferecer uma **plataforma acessível e confiável** voltada a pessoas que têm dificuldade em viajar ou sair, devido à preocupação com seus animais de estimação.
