@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Petmora</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">    
+  <link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+<body>  
+  <!-- NAVBAR -->
+  <nav class="navbar navbar-expand-sm bg-body-tertiary navbar-shadow-bottom">
+        <div class="container">
+            <a class="navbar-brand" href="index.html"><img src="assets/img/site-logo-petmora.png" alt="Logo"></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="petsitter.html">Encontre um Pet Sitter</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="hospedagem.html">Encontre uma Hospedagem</a> </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="como_funciona.html">Como Funciona?</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contato.html">Contato</a>
+                    </li>
+                </ul>
+
+                <ul class="navbar-nav mb-2 mb-lg-0">
+                    <li class="nav-item" id="navItemLogin">
+                        <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#authModal">Entrar / Cadastrar-se</a>
+                    </li>
+                    <li class="nav-item dropdown" id="navItemUser" style="display: none;"> 
+                        <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="navbarDropdownUserLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="" alt="Foto" class="rounded-circle me-2" width="32" height="32" id="navbarUserPhoto" style="display: none;"> 
+                            Olá, <span id="navbarUserName">Usuário</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownUserLink">
+                            <li><a class="dropdown-item" href="meu-perfil.html">Meu Perfil</a></li> 
+                            <li><a class="dropdown-item" href="minhareserva.html">Minhas Reservas</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#" id="btnLogout">Sair</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                </div>
+        </div>
+    </nav>
+<!-- FIM NAVBAR -->
+ <!-- Modal de Login/Cadastro -->
+    <div class="modal fade" id="authModal" tabindex="-1" aria-labelledby="authModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="authModalLabel">Entrar / Cadastrar-se</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <!-- Formulário de Login -->
+                    <div id="loginForm">
+                        <div class="card mb-3" style="min-height: 400px; overflow: hidden;">
+                            <div class="row g-0">
+                                <div class="col-md-5">
+                                    <img src="assets/img/imagem-do-login.png" class="w-100 h-100 object-fit-cover rounded-start" alt="Imagem do login">
+                                </div>
+                                <div class="col-md-7">
+                                    <div class="card-body d-flex flex-column justify-content-center h-100">
+                                        <div class="text-center mb-3">
+                                            <h5 class="fw-bold"> Olá! Entre na sua conta</h5>
+                                        </div>
+                                        <form onsubmit="return false;"> 
+                                            <div class="mb-3">
+                                                <label for="loginEmail" class="form-label">E-mail</label>
+                                                <input type="email" class="form-control" id="loginEmail">
+                                            </div>
+                                            <div class="mb-3 position-relative">
+                                                <label for="loginPassword" class="form-label">Senha</label>
+                                                <input type="password" class="form-control" id="loginPassword">
+                                                <span class="eye-icon" id="toggleLoginPassword" style="position: absolute; right: 10px; top: 36px; cursor:pointer;">
+                                                    <i class="bi bi-eye"></i>
+                                                </span>
+                                            </div>
+                                            <button type="button" class="btn btn-primary" id="btnLogin">Entrar</button> <div id="mensagemErro" class="text-danger mt-2"></div>
+                                            <div class="form-text mt-2">Não tem uma conta? <a href="#" id="showRegisterForm">Cadastrar-se</a></div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>              
+                    <!-- Formulário de Cadastro -->      
+                    <div id="registerForm" style="display: none;">
+                        <div class="card mb-3" style="overflow: hidden; min-height: 400px;">
+                            <div class="row g-0">
+                                <div class="col-md-5">
+                                    <img src="assets/img/imagem-do-login.png" class="w-100 h-100 object-fit-cover rounded-start" alt="Imagem do cadastro">
+                                </div>
+                                <div class="col-md-7">
+                                    <div class="card-body d-flex flex-column justify-content-center h-100">
+                                        <div class="text-center mb-3 mt-4">
+                                            <h5 class="fw-bold">Bem-vindo! Crie sua conta</h5>
+                                        </div>
+                                        <form onsubmit="return false;">
+                                            <div class="mb-2">
+                                                <label for="registerName" class="form-label">Nome</label>
+                                                <input type="text" class="form-control" id="registerName">
+                                            </div>
+                                            <div class="mb-2">
+                                                <label for="registerSurname" class="form-label">Sobrenome</label>
+                                                <input type="text" class="form-control" id="registerSurname">
+                                            </div>
+                                            <div class="mb-2">
+                                                <label for="registerEmail" class="form-label">E-mail</label>
+                                                <input type="email" class="form-control" id="registerEmail">
+                                            </div>
+                                            <div class="mb-2 position-relative">
+                                                <label for="registerPassword" class="form-label">Senha</label>
+                                                <input type="password" class="form-control" id="registerPassword">
+                                                <span class="eye-icon" id="toggleRegisterPassword" style="position: absolute; right: 10px; top: 36px; cursor:pointer;">
+                                                    <i class="bi bi-eye"></i>
+                                                </span>
+                                            </div>
+                                            <div class="mb-2 position-relative">
+                                                <label for="confirmPassword" class="form-label">Confirmar Senha</label>
+                                                <input type="password" class="form-control" id="confirmPassword">
+                                                <span class="eye-icon" id="toggleConfirmPassword" style="position: absolute; right: 10px; top: 36px; cursor: pointer;">
+                                                    <i class="bi bi-eye"></i>
+                                                </span>
+                                            </div>
+                                            <div class="form-check mb-2">
+                                                <input class="form-check-input" type="checkbox" id="termsCheckbox">
+                                                <label class="form-check-label" for="termsCheckbox">
+                                                    Concordo com os <a href="#">termos de uso</a>
+                                                </label>
+                                            </div>
+                                            <button type="button" class="btn btn-primary" id="btnRegistrar">Cadastrar</button> <div class="form-text mt-2">Já tem uma conta? <a href="#" id="showLoginForm">Entrar</a></div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+<!-- Resumo da Reserva -->
+<div class="container my-5">
+  <div class="row g-4">
+    
+    <!-- Resumo da Reserva -->
+    <div class="col-12 col-lg-6 mb-4">
+      <h5 class="mb-3">Resumo da Reserva</h5>
+      <div class="card shadow-sm border-0">
+        <div class="card-body">
+          <ul class="list-unstyled mb-0">
+            <li class="mb-2 d-flex justify-content-between">
+              <span><strong>Local:</strong></span>
+              <span class="text-dark" id="rua"></span>
+              <span class="text-dark" id="numeroC"></span>
+            </li>
+            <li class="mb-2 d-flex justify-content-between">
+              <span><strong>Datas:</strong></span>
+              <span class="text-dark" id="dataInicio"></span>
+              <span class="text-dark"> - </span>
+              <span class="text-dark" id="dataFim"></span>
+            </li>
+            <li class="mb-2 d-flex justify-content-between">
+              <span><strong>Pet:</strong></span>
+              <span class="text-dark" id="petTutor">Tommy</span>
+            </li>
+            <li class="mb-2 d-flex justify-content-between">
+              <span><strong>Cuidador:</strong></span>
+              <span class="text-dark" id="nomeCuidador">João Pereira</span>
+            </li>
+            <li class="mb-2 d-flex justify-content-between">
+              <span><strong>Estado/Ciade:</strong></span>
+              <span class="text-dark"> </span>
+              <span class="text-dark"> </span>
+            </li>
+            <li class="mb-2 d-flex justify-content-between">
+              <span><strong>Instruções do Cuidador: </strong></span>
+              <span class="text-dark" id="instru_pet">Gosta de passear duas vezes ao dia</span>
+            </li>
+            <li class="mb-2 d-flex justify-content-between">
+              <span><strong>Itens que o pet levará:</strong></span>
+              <span class="text-dark" id="itens_pet">Ração e brinquedo</span>
+            </li>
+          </ul>
+        </div>
+        <div class="card-footer bg-white d-flex justify-content-between align-items-center">
+          <span><strong>Total:</strong></span>
+          <span class="fs-5 text-dark" id="preco_servico">R$</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Dados do Pagamento -->
+    <div class="col-12 col-lg-6">
+      <h5 class="mb-3">Dados do Pagamento</h5>
+      <div class="bg-light-gray p-4 rounded">
+        <!-- Abas de Pagamento -->
+        <ul class="nav nav-pills mb-4" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button class="nav-link active" data-bs-toggle="pill" data-bs-target="#tab-card" type="button">Cartão de Crédito</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" data-bs-toggle="pill" data-bs-target="#tab-pix" type="button">Pix</button>
+          </li>
+        </ul>
+        <div class="tab-content">
+          <!-- Cartão -->
+          <div class="tab-pane fade show active" id="tab-card" role="tabpanel">
+            <div class="mb-3">
+              <label class="form-label">Número do Cartão</label>
+              <input type="text" class="form-control" placeholder="1234 5678 9012 3456">
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Nome do Titular</label>
+              <input type="text" class="form-control" placeholder="Como no cartão">
+            </div>
+            <div class="row g-3">
+              <div class="col-6">
+                <label class="form-label">CVV</label>
+                <input type="text" class="form-control" placeholder="123">
+              </div>
+              <div class="col-6">
+                <label class="form-label">Validade</label>
+                <input type="month" class="form-control">
+              </div>
+            </div>
+          </div>
+          <!-- Pix -->
+          <div class="tab-pane fade" id="tab-pix" role="tabpanel">
+            <div class="mb-3">
+              <label class="form-label">Chave Pix</label>
+              <input type="text" class="form-control" placeholder="E-mail, CPF ou telefone">
+            </div>
+          </div>
+        </div>
+        <!-- Botão Finalizar -->
+        <div class="text-end mt-4">
+          <a href="confirmacao.html" class="btn btn-reserva mt-2">Finalizar</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- Inicio do Footer -->
+<footer class="bg-cinza text-dark pt-5 pb-3">
+  <div class="container">
+    <div class="row">
+      <!-- Logo -->
+      <div class="col-md-4 mb-4">
+        <img src="assets/img/logo-petmora.png" alt="Logo" style="max-width: 150px;">
+      </div>
+
+      <!-- Contato -->
+      <div class="col-md-4 mb-4">
+        <h6 class="fw-bold">Contato</h6>
+        <p class="mb-1">+55 (11) 9999-9999</p>
+        <p class="mb-1">petmora@petmora.com</p>
+        <hr>
+        <p class="mb-1">Rua das Margaridas, 12 - Tatuapé</p>
+        <p>São Paulo - SP</p>
+        <hr>
+        <div class="d-flex gap-3">
+          <a href="https://facebook.com" target="_blank"><i class="bi bi-facebook fs-4 text-dark"></i></a>
+          <a href="https:/instagram.com" target="_blank"><i class="bi bi-instagram fs-4 text-dark"></i></a>
+          <a href="https://youtube.com" target="_blank"><i class="bi bi-youtube fs-4 text-dark"></i></a>
+        </div>
+      </div>
+
+      <!-- Informações -->
+      <div class="col-md-4 mb-4">
+        <h6 class="fw-bold">Informações</h6>
+        <ul class="list-unstyled">
+          <li><a href="petsitter.html" class="text-dark text-decoration-none">Encontre um cuidador</a></li>
+          <li><a href="hospedagem.html" class="text-dark text-decoration-none">Encontre uma hospedagem</a></li>
+          <li><a href="como_funciona.html" class="text-dark text-decoration-none">Como funciona</a></li>
+          <li><a href="contato.html" class="text-dark text-decoration-none">Contato</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="text-center pt-3 border-top mt-4">
+      <p class="mb-1">Petmora © 2025 | Desenvolvido por Ingrid, Pedro e Bryan | Projeto de Desenvolvimento Web – SENAC</p>        
+      <a href="https://github.com/byingridsantana/petmora" target="_blank" class="text-dark text-decoration-none">
+        <i class="bi bi-github"></i> Ver no GitHub
+      </a>
+    </div>
+  </div>
+</footer>
+<!-- Fim do Footer -->
+
+
+  <!-- Scripts do Bootstrap e jQuery -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.js"></script>
+  <script src="assets/js/script.js"></script>
+  <script src="assets/js/back.js"></script>
+<script>
+  let url = window.location.search
+
+  let params = new URLSearchParams(url);
+  let rua = params.get("rua");
+  let numeroC = params.get("numeroC");
+  let dataInicio = params.get("dataInicio");
+  let dataFim = params.get("dataFim");
+  let petTutor = params.get("petTutor");
+  let nomeCuidador = params.get("nomeCuidador");
+  let instru_pet = params.get("instru_pet");
+  let itens_pet = params.get("itens_pet");
+  let preco_servico = params.get("preco_servico");
+  let estado = params.get("estado");
+  let cidade = params.get("cidade");
+  let preco = params.get("preco");
+  let precoFormatado = parseFloat(preco_servico).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+</script>
+  </body>
+</html>

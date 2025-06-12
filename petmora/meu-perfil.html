@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Petmora</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">    
+  <link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+<body onload="renderizarPets()"> 
+  <!-- NAVBAR -->
+  <nav class="navbar navbar-expand-sm bg-body-tertiary navbar-shadow-bottom">
+        <div class="container">
+            <a class="navbar-brand" href="index.html"><img src="assets/img/site-logo-petmora.png" alt="Logo"></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="petsitter.html">Encontre um Pet Sitter</a> </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="hospedagem.html">Encontre uma Hospedagem</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="como_funciona.html">Como Funciona?</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contato.html">Contato</a>
+                    </li>
+                </ul>
+
+                <ul class="navbar-nav mb-2 mb-lg-0">
+                    <li class="nav-item" id="navItemLogin">
+                        <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#authModal">Entrar / Cadastrar-se</a>
+                    </li>
+                    <li class="nav-item dropdown" id="navItemUser" style="display: none;"> 
+                        <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="navbarDropdownUserLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="" alt="Foto" class="rounded-circle me-2" width="32" height="32" id="navbarUserPhoto" style="display: none;"> 
+                            Olá, <span id="navbarUserName">Usuário</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownUserLink">
+                            <li><a class="dropdown-item" href="meu-perfil.html">Meu Perfil</a></li> 
+                            <li><a class="dropdown-item" href="minhareserva.html">Minhas Reservas</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#" id="btnLogout">Sair</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                </div>
+        </div>
+    </nav>
+    <!-- FIM NAVBAR -->
+     <!-- Modal de Login/Cadastro -->
+    <div class="modal fade" id="authModal" tabindex="-1" aria-labelledby="authModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="authModalLabel">Entrar / Cadastrar-se</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <!-- Formulário de Login -->
+                    <div id="loginForm">
+                        <div class="card mb-3" style="min-height: 400px; overflow: hidden;">
+                            <div class="row g-0">
+                                <div class="col-md-5">
+                                    <img src="assets/img/imagem-do-login.png" class="w-100 h-100 object-fit-cover rounded-start" alt="Imagem do login">
+                                </div>
+                                <div class="col-md-7">
+                                    <div class="card-body d-flex flex-column justify-content-center h-100">
+                                        <div class="text-center mb-3">
+                                            <h5 class="fw-bold"> Olá! Entre na sua conta</h5>
+                                        </div>
+                                        <form onsubmit="return false;"> 
+                                            <div class="mb-3">
+                                                <label for="loginEmail" class="form-label">E-mail</label>
+                                                <input type="email" class="form-control" id="loginEmail">
+                                            </div>
+                                            <div class="mb-3 position-relative">
+                                                <label for="loginPassword" class="form-label">Senha</label>
+                                                <input type="password" class="form-control" id="loginPassword">
+                                                <span class="eye-icon" id="toggleLoginPassword" style="position: absolute; right: 10px; top: 36px; cursor:pointer;">
+                                                    <i class="bi bi-eye"></i>
+                                                </span>
+                                            </div>
+                                            <button type="button" class="btn btn-primary" id="btnLogin">Entrar</button> <div id="mensagemErro" class="text-danger mt-2"></div>
+                                            <div class="form-text mt-2">Não tem uma conta? <a href="#" id="showRegisterForm">Cadastrar-se</a></div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Formulário de Cadastro -->
+                    <div id="registerForm" style="display: none;">
+                        <div class="card mb-3" style="overflow: hidden; min-height: 400px;">
+                            <div class="row g-0">
+                                <div class="col-md-5">
+                                    <img src="assets/img/imagem-do-login.png" class="w-100 h-100 object-fit-cover rounded-start" alt="Imagem do cadastro">
+                                </div>
+                                <div class="col-md-7">
+                                    <div class="card-body d-flex flex-column justify-content-center h-100">
+                                        <div class="text-center mb-3 mt-4">
+                                            <h5 class="fw-bold">Bem-vindo! Crie sua conta</h5>
+                                        </div>
+                                        <form onsubmit="return false;">
+                                            <div class="mb-2">
+                                                <label for="registerName" class="form-label">Nome</label>
+                                                <input type="text" class="form-control" id="registerName">
+                                            </div>
+                                            <div class="mb-2">
+                                                <label for="registerSurname" class="form-label">Sobrenome</label>
+                                                <input type="text" class="form-control" id="registerSurname">
+                                            </div>
+                                            <div class="mb-2">
+                                                <label for="registerEmail" class="form-label">E-mail</label>
+                                                <input type="email" class="form-control" id="registerEmail">
+                                            </div>
+                                            <div class="mb-2 position-relative">
+                                                <label for="registerPassword" class="form-label">Senha</label>
+                                                <input type="password" class="form-control" id="registerPassword">
+                                                <span class="eye-icon" id="toggleRegisterPassword" style="position: absolute; right: 10px; top: 36px; cursor:pointer;">
+                                                    <i class="bi bi-eye"></i>
+                                                </span>
+                                            </div>
+                                            <div class="mb-2 position-relative">
+                                                <label for="confirmPassword" class="form-label">Confirmar Senha</label>
+                                                <input type="password" class="form-control" id="confirmPassword">
+                                                <span class="eye-icon" id="toggleConfirmPassword" style="position: absolute; right: 10px; top: 36px; cursor: pointer;">
+                                                    <i class="bi bi-eye"></i>
+                                                </span>
+                                            </div>
+                                            <div class="form-check mb-2">
+                                                <input class="form-check-input" type="checkbox" id="termsCheckbox">
+                                                <label class="form-check-label" for="termsCheckbox">
+                                                    Concordo com os <a href="#">termos de uso</a>
+                                                </label>
+                                            </div>
+                                            <button type="button" class="btn btn-primary" id="btnRegistrar">Cadastrar</button> <div class="form-text mt-2">Já tem uma conta? <a href="#" id="showLoginForm">Entrar</a></div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+  <!-- Meu Perfil -->
+  <div class="container my-5">
+    <ul class="nav nav-tabs nav-tabs-custom mb-4">
+      <li class="nav-item">
+        <a class="nav-link active" href="#" onclick="mostrarTela('perfil')">Meu Perfil</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#" onclick="mostrarTela('pets')">Meus Pets</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#" onclick="mostrarTela('config')">Configurações</a>
+      </li>
+    </ul>
+
+    <div class="row section-border">
+      <div class="col-md-3 text-center border-end">
+        <img src="https://via.placeholder.com/150" alt="Foto de Perfil" class="profile-img mb-3" id="fotoPerfil">
+        <input class="form-control" type="file" id="uploadFoto">
+        <h4 class="mt-2" id="nomeExibicao"></h4>
+        <p id="iduser" class="text-muted">ID:</p>
+        <p class="text-muted edit-label" onclick="document.getElementById('uploadFoto').click()">editar foto do perfil</p>
+      </div>
+
+      <div class="col-md-9">
+        <h5 class="mb-4" id="perfil">Meu Perfil</h5>
+        <form id="formPerfil">
+          <div class="row mb-3">
+            <div class="col">
+              <label>Nome</label>
+              <input type="text" class="form-control" id="inputNome" disabled>
+            </div>
+            <div class="col">
+              <label>Sobrenome</label>
+              <input type="text" class="form-control" id="inputSobrenome" disabled>
+            </div>
+          </div>
+
+          <div class="row mb-3">
+            <div class="col">
+              <label>CPF</label>
+              <input type="text" class="form-control" id="CPF" placeholder="XXX.XXX.XXX-XX" maxlength="14" oninput="formatarCPF(this)">
+            </div>
+            <div class="col">
+              <label>RG</label>
+              <input type="text" class="form-control" id="RG" placeholder="XX.XXX.XXX-X" maxlength="12" oninput="formatarRG(this)" >
+            </div>
+          </div>
+
+          <div class="row mb-3">
+            <div class="col">
+              <label>Email</label>
+              <input type="email" class="form-control" id="inputEmail" disabled>
+            </div>
+            <div class="col">
+              <label>Celular</label>
+              <input type="text" class="form-control" id="Celular" placeholder="(XX) XXXXX-XXXX" maxlength="15" oninput="formatarCelular(this)">
+            </div>
+          </div>
+
+          <div class="row mb-3">
+            <div class="col">
+              <label>Data de Nascimento</label>
+              <input type="date" class="form-control" id="nascimento">
+            </div>
+            <div class="col">
+              <label>Gênero</label>
+              <select class="form-control" id="genero">
+                <option selected disabled selected>Selecione o gênero</option>
+                <option>Feminino</option>
+                <option>Masculino</option>                
+              </select>
+            </div>
+          </div>
+
+          <div class="row mb-3">
+            <div class="col-md-4">
+              <label>CEP</label>
+              <input type="text" class="form-control" id="cep" placeholder="XXXXX-XXX" oninput="formatarCEP(this)">
+              <small>
+                <a href="https://buscacepinter.correios.com.br/app/endereco/index.php" target="_blank" class="text-decoration-none">Não sei meu CEP</a>
+              </small>
+
+            </div>
+            <div class="col-md-8">
+              <label>Endereço</label>
+              <input type="text" class="form-control" id="endereco" placeholder="digite seu endereço">
+            </div>
+          </div>
+
+          <div class="row mb-3">
+            <div class="col">
+              <label>nº</label>
+              <input type="text" class="form-control" placeholder="nº" id="numero">
+            </div>
+            <div class="col">
+              <label>Bairro</label>
+              <input type="text" class="form-control" id="bairro" placeholder="digite seu bairro">
+            </div>
+            <div class="col">
+              <label>Cidade</label>
+              <input type="text" class="form-control" id="cidade" placeholder="digite sua cidade">
+            </div>
+            <div class="col">
+              <label>Estado</label>
+              <input type="text" class="form-control" id="estado" placeholder="digite seu estado">
+            </div>
+          </div>
+
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <label for="tipoUsuario">Tipo de perfil:</label>
+              <select class="form-select" id="tipoUsuario" onchange="mostrarCamposAdicionais()">
+                <option value="" disabled selected>Selecione o tipo de perfil</option>
+                <option value="Tutor">Tutor(a)</option>
+                <option value="Cuidador">Cuidador(a)</option>
+                <option value="Cuidador/Tutor">Cuidador(a) e Tutor(a)</option>
+              </select>
+            </div>
+          </div>
+          
+          <!-- Campos extras para cuidadora -->
+          <div id="camposCuidadora" style="display: none;">
+            <label for="tipoUsuario">Tipo de serviço:</label>
+            <select class="form-select" id="tipoServico">              
+              <option value="" disabled selected>Selecione o tipo de Serviço</option>
+              <option value="Pet Sitter">Pet Sitter</option>
+              <option value="Hospedagem">Hospedagem</option>              
+            </select><br>
+            <label for="tipoUsuario">Tipo de Porte:</label>
+            <select class="form-select" id="tipoPorte">
+              <option value="" disabled selected>Selecione o tipo de Porte</option>
+              <option value="Pequeno">Pequeno</option>
+              <option value="Médio">Médio</option>    
+              <option value="Gramde">Grande</option>          
+            </select><br>
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label for="precoDiaria">Preço da diária (R$)</label>
+                <input type="number" class="form-control" id="precoDiaria" placeholder="Ex: 80">
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-12">
+                <label for="observacoes">Observações</label>
+                <textarea class="form-control" id="observacoes" rows="3" placeholder="Ex: Cuido de cães de pequeno porte."></textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class="text-end">
+            <button type="submit" class="btn btn-laranja px-5" id="btnSalvar2" onclick="alterarPerfil2()">Salvar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+<!-- Fim do meu perfil -->
+
+<!-- Meus Pets -->
+<div class="container my-5" id="meusPets" style="display: none;">
+  <h5 class="mb-4" id="meusPets">Meus Pets</h5>
+
+  <div class="text-end mb-3">
+    <button class="btn btn-laranja" onclick="abrirModalAdicionarPet()">+ Adicionar Pet</button>
+  </div>
+
+  <div class="row" id="listaPets">
+    <!-- Pets serão inseridos aqui -->
+  </div>
+</div>
+
+<!-- Modal para Adicionar/Editar Pet -->
+<div class="modal fade" id="modalPet" tabindex="-1" aria-labelledby="modalPetLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalPetLabel">Adicionar Pet</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+      </div>
+      <div class="modal-body">
+        <form id="formPet">
+          <input type="hidden" id="idPetEdicao">
+          <div class="mb-3">
+            <label for="nomePet" class="form-label">Nome do Pet</label>
+            <input type="text" class="form-control" id="nomePet" required>
+          </div>
+          <div class="mb-3">
+            <label for="especiePet" class="form-label">Espécie</label>
+            <select class="form-select" id="especiePet" required>
+              <option value="" disabled selected>Selecione a espécie</option>
+              <option>Cachorro</option>
+              <option>Gato</option>              
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="especiePet" class="form-label">Sexo</label>
+            <select class="form-select" id="sexoPet" required>
+              <option value="" disabled selected>Selecione o sexo</option>
+              <option>Macho</option>
+              <option>Fêmea</option>              
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="racaPet" class="form-label">Idade</label>
+            <input type="text" class="form-control" id="idadePet" required>
+          </div>
+          <div class="mb-3">
+            <label for="racaPet" class="form-label">Raça</label>
+            <input type="text" class="form-control" id="racaPet" required>
+          </div>
+          <div class="mb-3">
+            <label for="especiePet" class="form-label">Porte</label>
+            <select class="form-select" id="portePet" required>
+              <option value="" disabled selected>Selecione o porte</option>
+              <option>Pequeno</option>
+              <option>Médio</option>        
+              <option>Grande</option>      
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="especiePet" class="form-label">Castrado</label>
+            <select class="form-select" id="castradoPet" required>              
+              <option>Sim</option>
+              <option>Não</option>                  
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="racaPet" class="form-label">Restrições</label>
+            <input type="text" class="form-control" id="restricoesPet" required>
+          </div>
+          <div class="mb-3">
+            <label for="racaPet" class="form-label">Comportamento</label>
+            <input type="text" class="form-control" id="comportamentoPet" required>
+          </div>
+          <div class="mb-3">
+            <label for="racaPet" class="form-label">Preferências</label>
+            <input type="text" class="form-control" id="preferenciasPet" required>
+          </div>
+          <div class="mb-3">
+            <label for="fotoPet" class="form-label">Foto</label>
+            <input class="form-control" type="file" id="fotoPet">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="" class="btn btn-laranja" form="" onclick="salvarPet()">Salvar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <!-- Fim do Meu Pet -->
+
+  <!-- Configurações -->
+<div class="container my-5" id="configuracoes" style="display: none;">
+  <div class="row section-border p-4">
+    <h5 class="mb-4">Atualizar Perfil</h5>
+
+    <form id="formConfiguracoes" onsubmit="return false">
+      <div class="row mb-3">
+        <div class="col">
+          <label>Nome</label>
+          <input type="text" class="form-control" value="" id="nomeConfig">
+        </div>
+        <div class="col">
+          <label>Sobrenome</label>
+          <input type="text" class="form-control" value="" id="sobrenomeConfig">
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <div class="col">
+          <label>Telefone</label>
+          <input type="text" class="form-control" id="celularConfig" placeholder="(XX) XXXXX-XXXX" maxlength="15" oninput="formatarCelular(this)">
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="emailConfig">E-mail</label>
+        <input type="email" class="form-control" id="emailConfig" value="">
+      </div>
+
+      <div class="text-center my-4">
+        <button type="submit" class="btn btn-laranja px-5" id="btnAtualizarconfig" onclick="atualizarConfiguracoesPerfil()">Atualizar</button>
+      </div>
+    </form>
+
+    <hr class="my-5">
+
+    <h5 class="mb-4">Redefinir a Senha</h5>
+
+    <form id="formRedefinirSenha" onsubmit="return false">
+      <div class="mb-3 position-relative">
+        <label for="novaSenha" class="form-label">Nova Senha</label>
+        <input type="password" class="form-control" id="novaSenha" placeholder="Digite a nova senha" required>
+        <span class="eye-icon" id="toggleNovaSenha" style="position: absolute; right: 10px; top: 38px; cursor: pointer;">
+          <i class="bi bi-eye"></i>
+        </span>
+      </div>
+    
+      <div class="mb-3 position-relative">
+        <label for="repitaSenha" class="form-label">Repita a Senha</label>
+        <input type="password" class="form-control" id="repitaSenha" placeholder="Repita a nova senha" required>
+        <span class="eye-icon" id="toggleRepitaSenha" style="position: absolute; right: 10px; top: 38px; cursor: pointer;">
+          <i class="bi bi-eye"></i>
+        </span>
+      </div>
+    
+      <div class="text-center my-4">
+        <button type="submit" class="btn btn-laranja px-5" id="RedfSenha" onclick="redefinirSenha()">Redefinir a senha</button>
+      </div>
+    </form>
+
+    <hr class="my-5"> 
+    <h5>Encerrar Conta</h5>
+    <p class="text-muted">Essa ação é irreversível. Todos os seus dados serão excluídos permanentemente.</p>
+    <div class="text-center mt-4">
+      <button class="btn btn-outline-danger" onclick="deletarConta()">Deletar minha conta</button>
+    </div>
+  </div>
+</div>
+<!-- Fim Configurações -->
+
+
+ <!-- Inicio do Footer -->
+<footer class="bg-cinza text-dark pt-5 pb-3">
+  <div class="container">
+    <div class="row">
+      <!-- Logo -->
+      <div class="col-md-4 mb-4">
+        <img src="assets/img/logo-petmora.png" alt="Logo" style="max-width: 150px;">
+      </div>
+
+      <!-- Contato -->
+      <div class="col-md-4 mb-4">
+        <h6 class="fw-bold">Contato</h6>
+        <p class="mb-1">+55 (11) 9999-9999</p>
+        <p class="mb-1">petmora@petmora.com</p>
+        <hr>
+        <p class="mb-1">Rua das Margaridas, 12 - Tatuapé</p>
+        <p>São Paulo - SP</p>
+        <hr>
+        <div class="d-flex gap-3">
+          <a href="https://facebook.com" target="_blank"><i class="bi bi-facebook fs-4 text-dark"></i></a>
+          <a href="https:/instagram.com" target="_blank"><i class="bi bi-instagram fs-4 text-dark"></i></a>
+          <a href="https://youtube.com" target="_blank"><i class="bi bi-youtube fs-4 text-dark"></i></a>
+        </div>
+      </div>
+
+      <!-- Informações -->
+      <div class="col-md-4 mb-4">
+        <h6 class="fw-bold">Informações</h6>
+        <ul class="list-unstyled">
+          <li><a href="petsitter.html" class="text-dark text-decoration-none">Encontre um cuidador</a></li>
+          <li><a href="hospedagem.html" class="text-dark text-decoration-none">Encontre uma hospedagem</a></li>
+          <li><a href="como_funciona.html" class="text-dark text-decoration-none">Como funciona</a></li>
+          <li><a href="contato.html" class="text-dark text-decoration-none">Contato</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="text-center pt-3 border-top mt-4">
+      <p class="mb-1">Petmora © 2025 | Desenvolvido por Ingrid, Pedro e Bryan | Projeto de Desenvolvimento Web – SENAC</p>        
+      <a href="https://github.com/byingridsantana/petmora" target="_blank" class="text-dark text-decoration-none">
+        <i class="bi bi-github"></i> Ver no GitHub
+      </a>
+    </div>
+  </div>
+</footer>
+<!-- Fim do Footer -->
+
+  <!-- Scripts do Bootstrap e jQuery -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.js"></script>
+  <script src="assets/js/script.js"></script>
+  <script src="assets/js/back.js"></script>
+  <script src="assets/js/cookies.js"></script>
+
+
+</body>
+</html>

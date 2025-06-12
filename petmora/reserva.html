@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Petmora</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">  
+    <link rel="icon" type="image/favicon" href="/assets/img/favicon.png">  
+    <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body onload="listarPetsReserva()">    
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-sm bg-body-tertiary navbar-shadow-bottom">
+      <div class="container">
+          <a class="navbar-brand" href="index.html"><img src="assets/img/site-logo-petmora.png" alt="Logo"></a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+              aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                  <li class="nav-item">
+                      <a class="nav-link active" aria-current="page" href="petsitter.html">Encontre um Pet Sitter</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="hospedagem.html">Encontre uma Hospedagem</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="como_funciona.html">Como Funciona?</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="contato.html">Contato</a>
+                  </li>
+              </ul>
+
+              <ul class="navbar-nav mb-2 mb-lg-0">
+                  <li class="nav-item" id="navItemLogin">
+                      <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#authModal">Entrar / Cadastrar-se</a>
+                  </li>
+                  <li class="nav-item dropdown" id="navItemUser" style="display: none;"> <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="navbarDropdownUserLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                          <img src="" alt="Foto" class="rounded-circle me-2" width="32" height="32" id="navbarUserPhoto" style="display: none;"> Olá, <span id="navbarUserName">Usuário</span>
+                      </a>
+                      <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownUserLink">
+                          <li><a class="dropdown-item" href="meu-perfil.html">Meu Perfil</a></li> <li><a class="dropdown-item" href="minhareserva.html">Minhas Reservas</a></li>
+                          <li><hr class="dropdown-divider"></li>
+                          <li><a class="dropdown-item" href="#" id="btnLogout">Sair</a></li>
+                      </ul>
+                  </li>
+              </ul>
+              </div>
+      </div>
+  </nav>
+      <!-- FIM NAVBAR -->
+
+
+ <!-- Modal de Login/Cadastro -->
+<div class="modal fade" id="authModal" tabindex="-1" aria-labelledby="authModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="authModalLabel">Entrar / Cadastrar-se</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+        <!-- Formulário de Login -->
+        <div id="loginForm">
+          <div class="card mb-3" style="min-height: 400px; overflow: hidden;">
+            <div class="row g-0">
+              <div class="col-md-5">
+                <img src="assets/img/imagem-do-login.png" class="w-100 h-100 object-fit-cover rounded-start" alt="Imagem do login">
+              </div>
+              <div class="col-md-7">
+                <div class="card-body d-flex flex-column justify-content-center h-100">
+                  <div class="text-center mb-3">
+                    <h5 class="fw-bold"> Olá! Entre na sua conta</h5>
+                  </div>
+                  <form>
+                    <div class="mb-3">
+                      <label for="loginEmail" class="form-label">E-mail</label>
+                      <input type="email" class="form-control" id="loginEmail">
+                    </div>
+                    <div class="mb-3 position-relative">
+                      <label for="loginPassword" class="form-label">Senha</label>
+                      <input type="password" class="form-control" id="loginPassword">
+                      <span class="eye-icon" id="toggleLoginPassword" style="position: absolute; right: 10px; top: 36px;">
+                        <i class="bi bi-eye"></i>
+                      </span>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Entrar</button>
+                    <div class="form-text mt-2">Não tem uma conta? <a href="#" id="showRegisterForm">Cadastrar-se</a></div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Formulário de Cadastro -->
+        <div id="registerForm" style="display: none;">
+          <div class="card mb-3" style="overflow: hidden; min-height: 400px;">
+            <div class="row g-0">
+              <div class="col-md-5">
+                <img src="assets/img/imagem-do-login.png" class="w-100 h-100 object-fit-cover rounded-start" alt="Imagem do cadastro">
+              </div>
+              <div class="col-md-7">
+                <div class="card-body d-flex flex-column justify-content-center h-100">
+                  <div class="text-center mb-3 mt-4">
+                    <h5 class="fw-bold">Bem-vindo! Crie sua conta</h5>
+                  </div>
+                  <form>
+                    <div class="mb-2">
+                      <label for="registerName" class="form-label">Nome</label>
+                      <input type="text" class="form-control" id="registerName">
+                    </div>
+                    <div class="mb-2">
+                      <label for="registerSurname" class="form-label">Sobrenome</label>
+                      <input type="text" class="form-control" id="registerSurname">
+                    </div>
+                    <div class="mb-2">
+                      <label for="registerEmail" class="form-label">E-mail</label>
+                      <input type="email" class="form-control" id="registerEmail">
+                    </div>
+                    <div class="mb-2 position-relative">
+                      <label for="registerPassword" class="form-label">Senha</label>
+                      <input type="password" class="form-control" id="registerPassword">
+                      <span class="eye-icon" id="toggleRegisterPassword" style="position: absolute; right: 10px; top: 36px;">
+                        <i class="bi bi-eye"></i>
+                      </span>
+                    </div>
+                    <div class="mb-2 position-relative">
+                      <label for="confirmPassword" class="form-label">Confirmar Senha</label>
+                      <input type="password" class="form-control" id="confirmPassword">
+                      <span class="eye-icon" id="toggleConfirmPassword" style="position: absolute; right: 10px; top: 36px; cursor: pointer;">
+                        <i class="bi bi-eye"></i>
+                      </span>
+                    </div>
+                    <div class="form-check mb-2">
+                      <input class="form-check-input" type="checkbox" id="termsCheckbox">
+                      <label class="form-check-label" for="termsCheckbox">
+                        Concordo com os <a href="#">termos de uso</a>
+                      </label>
+                    </div>
+                    <button type="submit" class="btn btn-primary" id="btnRegistrar">Cadastrar</button>
+                    <div class="form-text mt-2">Já tem uma conta? <a href="#" id="showLoginForm">Entrar</a></div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container my-5">
+  <h3 class="mb-4">Revise e confirme sua reserva</h3>
+
+  <!-- Card do cuidador -->
+  <div class="card mb-4 p-3 d-flex flex-row align-items-center justify-content-between">
+    <div class="d-flex align-items-center">
+      <img src="assets/img/" alt="Cuidador" class="rounded-circle me-3" style="width: 60px; height: 60px;" id="ID_do_Cuidador">
+      
+      <div>
+        <strong id="nome_cuidador"></strong>
+        <strong id="sobrenome_cuidador"></strong><br>
+        <div class="text-warning">
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star-half-alt"></i>
+          <i class="far fa-star"></i>
+        </div>
+        <span id="tiposervico"></span> <br>
+        <span id="estado_cuidador"></span>
+        <span> - </span>
+      <span id="cidade_cuidador"></span>
+      </div>
+    </div>
+    <div class="text-end">
+      <span> </span>
+    </div>
+  </div>
+
+  <!-- Formulário de reserva -->
+  <form id="formReserva" onsubmit="return false;">
+    <input type="hidden" id="id_cuidador">
+    <input type="hidden" id="id_servico">
+    <div class="row g-3">
+
+      <!-- Datas e Períodos -->
+<div class="col-md-3">
+  <label class="form-label">Data de Entrada</label>
+  <input type="date" class="form-control" id="data_inicio">
+</div>
+<div class="col-md-3">
+  <label class="form-label">Período</label>
+  <select class="form-select" id="periodo_entrada">
+    <option>Diurno</option>
+    <option>Noturno</option>
+  </select>
+</div>
+<div class="col-md-3">
+  <label class="form-label">Data de Saída</label>
+  <input type="date" class="form-control" id="data_conclusao">
+</div>
+<div class="col-md-3">
+  <label class="form-label">Período</label>
+  <select class="form-select" id="periodo_saida">
+    <option>Diurno</option>
+    <option>Noturno</option>
+  </select>
+</div>
+
+<!-- Pet e Localização -->
+<div class="col-md-3">
+  <label class="form-label">Quais Pets?</label>
+  <select class="form-select" id="id_pet" required>
+    <option value="" disabled selected>Selecione seu Pet</option>         
+  </select>
+</div>
+<div class="col-md-3">
+  <label class="form-label">Tipo de Pet</label>
+  <select class="form-select" id="porte_pet" required>
+    <option>Cachorro</option>
+    <option>Gato</option>
+  </select>
+</div>
+<div class="col-md-3">
+  <label class="form-label">CEP</label>
+  <input type="text" class="form-control" id="buscarcep" placeholder="XXXXX-XXX" oninput="formatarCEP(this)">
+</div>
+<div class="col-md-3">
+  <label class="form-label">Endereço</label>
+  <input type="text" class="form-control" id="endereco" placeholder="digite seu endereço">
+</div>
+<div class="col-md-3">
+  <label class="form-label">n°</label>
+  <input type="text" class="form-control" id="numero" placeholder="nº">
+</div>
+<div class="col-md-3">
+  <label class="form-label">Bairro</label>
+  <input type="text" class="form-control" id="bairro" placeholder="digite seu bairro">
+</div>
+<div class="col-md-3">
+  <label class="form-label">Cidade</label>
+  <input type="text" class="form-control" id="cidade" placeholder="digite sua cidade">
+</div>
+<div class="col-md-3">
+  <label class="form-label">Estado</label>
+  <input type="text" class="form-control" id="estado" placeholder="digite seu estado">
+</div>
+
+<!-- Preferências -->
+<div class="mt-5">
+  <h5 class="mb-3">Preferências</h5>
+  <div class="mb-3">
+    <label class="form-label">Instruções para o cuidador</label>
+    <textarea class="form-control" rows="3" id="instrucao_pet" placeholder="Ex: Meu pet gosta de passear 2x ao dia."></textarea>
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Itens que o pet levará</label>
+    <textarea class="form-control" rows="3" id="itens_pet" placeholder="Brinquedos, petiscos, cama, etc."></textarea>
+  </div>
+</div>
+
+<!-- Valor total -->
+<div class="d-flex justify-content-end">
+  <strong>Valor Total</strong>: R$<span id="preco_servico"></span>
+</div>
+
+<!-- Contato de Emergência -->
+<div class="mt-5">
+  <h5 class="mb-3">Contato de Emergência</h5>
+  <div class="row g-3">
+    <div class="col-md-6">
+      <label class="form-label">Nome</label>
+      <input type="text" class="form-control" id="nome_emergencia" placeholder="digite seu nome">
+    </div>
+    <div class="col-md-6">
+      <label class="form-label">Celular:</label>
+      <input type="text" class="form-control" id="celular_emergencia" placeholder="(XX) XXXXX-XXXX" maxlength="15" oninput="formatarCelular(this)">
+    </div>
+  </div>
+</div>
+
+<!-- Botão -->
+<div class="text-end mt-4">
+  <button type="button" class="btn btn-reserva mt-2" onclick="enviarReserva()">Confirmar Reserva</button>
+</div>
+
+</div>
+</div>
+
+<!-- Inicio do Footer -->
+<footer class="bg-cinza text-dark pt-5 pb-3">
+  <div class="container">
+    <div class="row">
+      <!-- Logo -->
+      <div class="col-md-4 mb-4">
+        <img src="assets/img/logo-petmora.png" alt="Logo" style="max-width: 150px;">
+      </div>
+
+      <!-- Contato -->
+      <div class="col-md-4 mb-4">
+        <h6 class="fw-bold">Contato</h6>
+        <p class="mb-1">+55 (11) 9999-9999</p>
+        <p class="mb-1">petmora@petmora.com</p>
+        <hr>
+        <p class="mb-1">Rua das Margaridas, 12 - Tatuapé</p>
+        <p>São Paulo - SP</p>
+        <hr>
+        <div class="d-flex gap-3">
+          <a href="https://facebook.com" target="_blank"><i class="bi bi-facebook fs-4 text-dark"></i></a>
+          <a href="https:/instagram.com" target="_blank"><i class="bi bi-instagram fs-4 text-dark"></i></a>
+          <a href="https://youtube.com" target="_blank"><i class="bi bi-youtube fs-4 text-dark"></i></a>
+        </div>
+      </div>
+
+      <!-- Informações -->
+      <div class="col-md-4 mb-4">
+        <h6 class="fw-bold">Informações</h6>
+        <ul class="list-unstyled">
+          <li><a href="petsitter.html" class="text-dark text-decoration-none">Encontre um cuidador</a></li>
+          <li><a href="hospedagem.html" class="text-dark text-decoration-none">Encontre uma hospedagem</a></li>
+          <li><a href="como_funciona.html" class="text-dark text-decoration-none">Como funciona</a></li>
+          <li><a href="contato.html" class="text-dark text-decoration-none">Contato</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="text-center pt-3 border-top mt-4">
+      <p class="mb-1">Petmora © 2025 | Desenvolvido por Ingrid, Pedro e Bryan | Projeto de Desenvolvimento Web – SENAC</p>        
+      <a href="https://github.com/byingridsantana/petmora" target="_blank" class="text-dark text-decoration-none">
+        <i class="bi bi-github"></i> Ver no GitHub
+      </a>
+    </div>
+  </div>
+</footer>
+<!-- Fim do Footer -->
+
+<!-- Scripts do Bootstrap e jQuery -->
+
+ <script>
+  // buscar CEP no reserva
+document.getElementById('buscarcep').addEventListener('blur', async () => {
+  const buscarcep = document.getElementById('buscarcep').value.replace(/\D/g, '');
+  if (buscarcep.length === 8) {
+    try {
+      const res = await fetch(`https://viacep.com.br/ws/${buscarcep}/json/`);
+      const data = await res.json();
+      if (!data.erro) {
+        document.getElementById('endereco').value = data.logradouro;
+        document.getElementById('bairro').value = data.bairro;
+        document.getElementById('cidade').value = data.localidade;
+        document.getElementById('estado').value = data.uf;
+      } else {
+        alert('CEP não encontrado.');
+      }
+    } catch (error) {
+      console.error('Erro ao buscar CEP:', error);
+      alert('Erro ao buscar CEP. Tente novamente mais tarde.');
+    }
+  } else if (buscarcep.length > 0) {
+    alert('CEP inválido. Digite 8 números.');
+  }
+});
+ </script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.js"></script>
+<script src="assets/js/script.js"></script>
+<script src="assets/js/back.js"></script>
+
+
+<script>
+let url = window.location.search
+
+
+console.log(url)
+
+
+    console.log(url.split('='))
+
+
+    let dados_url = url.split('=')
+    let id_cuidador = dados_url[1].split('&')[0]
+    document.getElementById('id_cuidador').value = id_cuidador
+    console.log(id_cuidador)
+
+
+    let nome_url = dados_url[2].split('&')[0]
+
+    document.getElementById('nome_cuidador').innerText = nome_url
+
+    let sobrenome_url = dados_url[3].split('&')[0]
+
+    document.getElementById('sobrenome_cuidador').innerText = sobrenome_url
+
+    let tiposervico = dados_url[6].split('&')[0]
+ 
+    document.getElementById('tiposervico').innerText = tiposervico
+
+
+    let estado_url = dados_url[4].split('&')[0]
+
+    document.getElementById('estado_cuidador').innerText = estado_url.replace("%27", ' ').replace("%C3%A3", 'ã').replace("%20", ' ').replace("%27", '')
+
+    let cidade_url = dados_url[5].split('&')[0]
+
+    document.getElementById('cidade_cuidador').innerText = cidade_url.replace("%27", ' ').replace("%C3%A3", 'ã').replace("%20", ' ').replace("%27", '')
+
+    let preco_servico = dados_url[7].split('&')[0]
+    document.getElementById('preco_servico').innerText = preco_servico.replace("%2C", ',')
+
+
+    let id_servico = dados_url[8]
+    document.getElementById('id_servico').value = id_servico
+</script>
+</body>
+</html>
